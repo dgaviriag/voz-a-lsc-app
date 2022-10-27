@@ -42,9 +42,11 @@ export default function App() {
         <Text style={styles.titulo}>Hola.</Text>
         <Text style={styles.subtitle}>¡Bienvenido al traductor de voz a Lengua de Señas Colombiana!</Text>
       </View>
+
+      {results.map((result, index) => <Text style= {styles.subtitle} key={index}>{result}</Text>)}
       
       <View >
-        <Image  style= {styles.avatar} source={require("./assets/lengua/h/hi.jpg")}/>
+        <Image  style= {styles.avatar} source={require("./assets/hi.jpg")}/>
       </View>
       
       <StatusBar style="auto" />
@@ -55,7 +57,7 @@ export default function App() {
       
       {!started ? <Button title='Presione para traducir' color= "green" onPress={startSpeechToText} /> : undefined}
       {started ? <Button title='Presione para dejar de hablar' color= "red" onPress={stopSpeechToText} /> : undefined}
-      {results.map((result, index) => <Text key={index}>{result}</Text>)}
+      
     </View>
   );
 }
@@ -105,3 +107,4 @@ const styles = StyleSheet.create({
     height: 300,
   }
 });
+// uso este comando para correr el demo de la aplicación eas build -p android --profile preview
