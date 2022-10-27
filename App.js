@@ -39,18 +39,22 @@ export default function App() {
     <View style={styles.container}>
       <Image source={image} style={styles.image}/>
       <View>
-        <Text style={styles.subtitle}>Bienvenido al traductor de voz a Lengua de Señas Colombiana</Text>
+        <Text style={styles.titulo}>Hola.</Text>
+        <Text style={styles.subtitle}>¡Bienvenido al traductor de voz a Lengua de Señas Colombiana!</Text>
       </View>
       
+      <View >
+        <Image  style= {styles.avatar} source={require("./assets/lengua/h/hi.jpg")}/>
+      </View>
       
       <StatusBar style="auto" />
-      <TextInput 
+      {/*<TextInput 
         style= {styles.entrada}
-        placeholder= "Aquí aparecerá el texto"
-        
-      />
-      {!started ? <Button title='Presione para traducir' onPress={startSpeechToText} /> : undefined}
-      {started ? <Button title='Presione para dejar de hablar' onPress={stopSpeechToText} /> : undefined}
+        placeholder= "Introduzca texto"
+      />*/}
+      
+      {!started ? <Button title='Presione para traducir' color= "green" onPress={startSpeechToText} /> : undefined}
+      {started ? <Button title='Presione para dejar de hablar' color= "red" onPress={stopSpeechToText} /> : undefined}
       {results.map((result, index) => <Text key={index}>{result}</Text>)}
     </View>
   );
@@ -60,7 +64,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'f1f1f1',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -71,6 +75,14 @@ const styles = StyleSheet.create({
       resizeMode: 'contain',//sirve para dejar la imagen completa dentro de los parametros
       
       },
+
+  titulo:{
+    justifyContent: 'flex-start',
+    fontSize: 90, 
+    color: '#34434D',
+    fontWeight: 'bold', //para que se vea mas grueso
+    paddingEnd: 90,
+  },
   subtitle:{
     fontSize:20,
     padding: 7,
@@ -78,11 +90,18 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   entrada:{
-    width: 320,
-    marginBottom:10,
     borderWidth: 1,
-    padding: 20,
-    
-
+    borderColor: 'gray',
+    padding: 10,
+    paddingStart: 30,
+    width: '80%',
+    height: 50,
+    marginTop: 20,
+    borderRadius: 30,
+    backgroundColor: 'white',
+  },
+  avatar:{
+    width: 300, 
+    height: 300,
   }
 });
