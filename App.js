@@ -39,13 +39,15 @@ export default function App() {
     <View style={styles.container}>
       <Image source={image} style={styles.image}/>
       <View>
-        <Text style={styles.titulo}>Hola.</Text>
         <Text style={styles.subtitle}>¡Bienvenido al traductor de voz a Lengua de Señas Colombiana!</Text>
       </View>
-
-      {results.map((result, index) => <Text style= {styles.subtitle} key={index}>{result}</Text>)}
       
-      <View >
+        <Text style= {styles.salida}>{results[0]}</Text>
+        {//results.map((result, index) => <Text style= {styles.subtitle} key={index}>{result}</Text>)}
+        }
+
+      <View style= {styles.lineaHorizontal}>
+      
         <Image  style= {styles.avatar} source={require("./assets/hi.jpg")}/>
       </View>
       
@@ -78,12 +80,11 @@ const styles = StyleSheet.create({
       
       },
 
-  titulo:{
-    justifyContent: 'flex-start',
-    fontSize: 90, 
-    color: '#34434D',
-    fontWeight: 'bold', //para que se vea mas grueso
-    paddingEnd: 90,
+  salida:{
+    fontSize:20,
+    padding: 7,
+    fontWeight: 'bold',
+    color: 'green',
   },
   subtitle:{
     fontSize:20,
@@ -105,6 +106,13 @@ const styles = StyleSheet.create({
   avatar:{
     width: 300, 
     height: 300,
+  },
+  lineaHorizontal:{
+    borderWidth: 2,
+    borderColor: "rgba(0,255,0,0.15)",
+    //borderBottomWidth: StyleSheet.hairlineWidth,
+    marginBottom: 30,
+    borderRadius: 5,
   }
 });
 // uso este comando para correr el demo de la aplicación eas build -p android --profile preview
