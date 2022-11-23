@@ -58,6 +58,7 @@ export default function App() {
   };
 
   const stopSpeechToText = async () => {
+    llamarRuta(normalizarFrase(results[0]));//guardo las rutas usando la frase normalizada (sin tildes ni mayusculas)
     await Voice.stop();
     setStarted(false);
   };
@@ -74,10 +75,13 @@ export default function App() {
   //funcion para obetener la info del diccionario
   const llamarRuta = (frase) =>{
     rutas.splice(0, rutas.length);//borra las rutas anteriores
-    let fraseSeparada= frase.split(" ");//se obtiene cada palabra de la frase
-    guardarRuta(fraseSeparada);//Aquí se manda el arreglo para definir las rutas
-    //let raiz = "./assets/lengua/"+frase[0]+"/"+frase+".jpg";
-    return (rutas);
+    if (frase!=""){//verifica que no sea una cadena vacia
+      let fraseSeparada= frase.split(" ");//se obtiene cada palabra de la frase
+      guardarRuta(fraseSeparada);//Aquí se manda el arreglo para definir las rutas
+      //let raiz = "./assets/lengua/"+frase[0]+"/"+frase+".jpg";
+    }else{
+      rutas.push(frase);
+    }
   }
 
   //Esta funcion almacena las rutas para poder desplegar cada imagen en el array de rutas
@@ -197,10 +201,12 @@ export default function App() {
     }
   }
 
- 
+//funcion para quitar tildes y establecer todo en minusculas
+ const normalizarFrase = (frase) =>{
+  let fraseNormalizada = frase.normalize('NFD').replace(/[\u0300-\u036f]/g, "");//quitar tildes
+  return fraseNormalizada.toLowerCase(); //retornar en minusculas
+ }
   
-  
-
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image}/>
@@ -229,9 +235,7 @@ export default function App() {
       {!started ? <Button title='Presione para traducir' color= "green" onPress={startSpeechToText} /> : undefined}
       {started ? <Button title='Presione para dejar de hablar' color= "red" onPress={stopSpeechToText} /> : undefined}
       
-      {
-      <Text>{llamarRuta("amigo hola")}</Text>
-      }
+      <Text>{rutas}</Text>
 
     </View>
   );
