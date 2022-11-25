@@ -3,15 +3,13 @@ import { StyleSheet, Text, Button, View, Image, TextInput} from 'react-native';/
 import { useEffect, useState } from 'react'; 
 import image from 'speech-to-text-app/assets/UN.png';
 import Voice from '@react-native-voice/voice';
-
-//import a from './assets/rutas/a.json';
-
-
+import Images from './assets/importarImagenes.js';
 
 export default function App() {
   let [started, setStarted] = useState(false);//variable de estado que me permte saber si estoy grabando
   let [results, setResults] = useState([]);//con esto se veran los resultados en texto como un arreglo
   let [rutas, setRutas] = useState([]);//variable de estado para cambiar de ruta
+  let [fuente, setFuente] = useState("hola");//tengo esta por ahora porque me pide un valor estatico
   
   //A continuacion se crean arreglos con las palabras existentes en lengua de señas para encontrar las rutas
   const a = ["abajo.jpg","abandonar.jpg","abanico.jpg","abarcar.jpg","abofetear.jpg","abonar.jpg","abono.jpg","aborto.jpg","abraham.jpg","abreviar.jpg","abrigo.jpg","abril.jpg","abrir_cortina.jpg","absorber.jpg","abstracto.jpg","abuelo.jpg","abuelo_v.jpg","aburrido.jpg","abuso.jpg","abuso_sexual.jpg","acabar.jpg","acariciar.jpg","accion_de_gracias.jpg","aceite.jpg","acelerar.jpg","acento.jpg","aceptar.jpg","acera.jpg","acercar.jpg","acercarse.jpg","acido.jpg","acido_nucleico.jpg","aclaracion.jpg","acne.jpg","acolitos.jpg","acomodar.jpg","acompan-ar.jpg","acosar.jpg","acoso_sexual.jpg","acostarse.jpg","acta.jpg","actitud.jpg","actual.jpg","acuario.jpg","acuatico.jpg","acunar.jpg","acurrucar.jpg","adan.jpg","adaptacion.jpg","adelantar.jpg","adherir.jpg","adhesion.jpg","adhesivo.jpg","adiestrar.jpg","adios.jpg","adiposa.jpg","adjetivo.jpg","adjetivo_calificativo.jpg","adjetivo_superlativo.jpg","adjuntar.jpg","administracion_de_empresas.jpg","admirar.jpg","admitir.jpg","adobar.jpg","adopcion.jpg","adoptar.jpg","adorable.jpg","adoracion.jpg","adorar.jpg","adormilar.jpg","adulto.jpg","adverbio.jpg","advertir.jpg","aereos.jpg","afan.jpg","afiche.jpg","afiliado.jpg","afrontar.jpg","agarrar.jpg","agentes.jpg","agosto.jpg","agotado.jpg","agotar.jpg","agregar.jpg","agua.jpg","agua_chica.jpg","agua_de_dios.jpg","aguacate.jpg","aguacero.jpg","aguadas.jpg","agustin_codazzi.jpg","ahi_esta.jpg","ahora.jpg","aji.jpg","ajo.jpg","ajustar.jpg","al_contrario.jpg","al_lado.jpg","al_lado_de_v.jpg","ala.jpg","alabanza.jpg","alba.jpg","albania.jpg","alcala.jpg","alcalde.jpg","alcaldia.jpg","alcanzar.jpg","alcanzar_a_alguien.jpg","alcanzar_algo.jpg","alcanzar_el_puntaje.jpg","alcoba.jpg","alcoholismo.jpg","alerta.jpg","aletas.jpg","alfabeto.jpg","algebra.jpg","algodon.jpg","algunos.jpg","alimentador.jpg","alimento_espiritual.jpg","alisar.jpg","aliviar.jpg","alla.jpg","alma.jpg","almacen.jpg","almeja.jpg","almidon.jpg","almohada.jpg","almojabana.jpg","almuerzo.jpg","alojar.jpg","altar.jpg","alterado.jpg","alternativa.jpg","alto.jpg","aluminio.jpg","alumno.jpg","alvarado.jpg","alveolos.jpg","alza.jpg","amable.jpg","amalfi.jpg","amanecer.jpg","amante.jpg","amargo.jpg","amarillo.jpg","amasar.jpg","ambicioso.jpg","ambientador.jpg","ambon.jpg","ameba.jpg","amenaza.jpg","america.jpg","amigdala.jpg","amigo.jpg","amigo_v.jpg","amonestar.jpg","amor.jpg","amorosa.jpg","amos.jpg","amperimetro.jpg","amplificacion.jpg","ampollas.jpg","amputar.jpg","anafase.jpg","anapoima.jpg","anaranjado.jpg","anatomia.jpg","ancho.jpg","anciano.jpg","androi.jpg","andropausia.jpg","anelidos.jpg","anestesiologo.jpg","anfibio.jpg","angiospermas.jpg","angostura.jpg","angulo.jpg","angulo_adyacente.jpg","angulo_agudo.jpg","angulo_complementario.jpg","angulo_consecutivo.jpg","angulo_convexo.jpg","angulo_de_giro.jpg","angulo_llano.jpg","angulo_obtuso.jpg","angulo_recto.jpg","angulos_opuestos_por_el_vertice.jpg","angulos_suplementarios.jpg","anidacion.jpg","animal.jpg","animales.jpg","animo.jpg","an-o.jpg","antena.jpg","antepenultima_silaba.jpg","antes.jpg","antes_de.jpg","antes_de_ayer.jpg","antifaz.jpg","antioquia.jpg","antologia.jpg","antonimo.jpg","antropologo.jpg","anual.jpg","anunciacion.jpg","aparato.jpg","aparato_de_golgi.jpg","apartado.jpg","apartamento.jpg","apartamento_v.jpg","apenas.jpg","aplaudir_oyentes.jpg","aplaudir_sordos.jpg","apocalipsis.jpg","apoyar.jpg","aprender.jpg","apretado.jpg","aprovechado.jpg","aprovechar.jpg","apulo.jpg","aqui.jpg","aracnidos.jpg","aran-a.jpg","aratoca.jpg","arbitro.jpg","arbol.jpg","arcilla.jpg","area.jpg","area_lateral.jpg","arepa.jpg","argumentacion.jpg","armenia.jpg","arn.jpg","aroma.jpg","aromatica.jpg","arrastrar.jpg","arreglar.jpg","arrendar.jpg","arrepentimiento.jpg","arriba.jpg","arriesgar.jpg","arroba.jpg","arroz.jpg","arruga.jpg","arrugada.jpg","arrugado.jpg","articulacion_biologia.jpg","articulacion_castellano.jpg","articulo.jpg","artropodos.jpg","arveja.jpg","arzobispo.jpg","asaltar.jpg","asamblea.jpg","ascencion_de_jesus.jpg","ascender.jpg","asexual.jpg","asfixia.jpg","asignar.jpg","asistir.jpg","asma.jpg","asociacion.jpg","asombrar.jpg","aspiracion.jpg","aspiradora.jpg","asquelmintos.jpg","astrologo.jpg","astronauta.jpg","asumir_a_dios.jpg","asunto.jpg","asustarse.jpg","atencion.jpg","atmosfera.jpg","atomo.jpg","atraccion.jpg","atrapar.jpg","atrasado.jpg","atrevido.jpg","audicion.jpg","auditiva.jpg","auditor.jpg","aula.jpg","aurora.jpg","automatico.jpg","autonomo.jpg","autopista.jpg","autopista_v.jpg","autor.jpg","autoridad_de_dios.jpg","autorizar.jpg","autoservicio.jpg","auxiliar.jpg","avanzado.jpg","avanzar.jpg","avenida_v.jpg","aventura.jpg","aventura_sexual.jpg","aves.jpg","avion.jpg","avisar.jpg","aviso.jpg","axioma.jpg","ayer.jpg","ayer_BIG.jpg","ayuda.jpg","ayudar.jpg","azteca.jpg","azucar.jpg","azul.jpg"];
@@ -87,10 +85,10 @@ export default function App() {
   //Esta funcion almacena las rutas para poder desplegar cada imagen en el array de rutas
   const guardarRuta = (fraseSeparada) =>{
     for (let index = 0; index < fraseSeparada.length; index++) {
-      if (verificarPalabra(fraseSeparada[index]+".jpg")==true){//verfica que si exista la palabra
+      if (verificarPalabra(fraseSeparada[index]+".jpg")==true && fraseSeparada[index].length>1){//verfica que si exista la palabra y que no sea una sola letra
         rutas.push("./assets/lengua/"+(fraseSeparada[index])[0]+"/"+fraseSeparada[index]+".jpg"+"\n");//Se agrega una ruta por
       }else{          
-          deletrear(fraseSeparada[index]);//Si no existe procede a buscar las rutas de cada letra (deletrar)
+          deletrear(fraseSeparada[index]);//Si no existe o es una sola letra, procede a buscar las rutas de cada letra (deletrar)
         }
       }
   }
@@ -98,10 +96,7 @@ export default function App() {
   //la siguiente funcion busca en los arrays del diccionario para comprobar si la palabra existe o no
   const verificarPalabra = (palabra) =>{
     let existe = false;
-    if ((palabra.length-4)==1){//aqui entra si es una letra y se le resta 4 al tamaño porque lleva concatenado .jpg
-      existe = true;
-    }else{
-      switch (palabra[0]){
+    switch (palabra[0]){
         case "a":
           existe= a.includes(palabra);
           break;
@@ -181,7 +176,7 @@ export default function App() {
           existe= z.includes(palabra);
           break;
       } 
-    }
+    
 
     if(existe==false){//verifica si se trata de un numero
       existe=numeros.includes(palabra);
@@ -196,7 +191,7 @@ export default function App() {
 
   const deletrear = (palabraDesconocida) =>{
     for (let index = 0; index < palabraDesconocida.length; index++) {
-      rutas.push("./assets/lengua/"+palabraDesconocida[index]+"/"+palabraDesconocida[index]+".jpg"+"\n");
+      rutas.push("./assets/lengua/"+"alfabeto"+"/"+palabraDesconocida[index]+".jpg"+"\n");
       
     }
   }
@@ -206,7 +201,16 @@ export default function App() {
   let fraseNormalizada = frase.normalize('NFD').replace(/[\u0300-\u036f]/g, "");//quitar tildes
   return fraseNormalizada.toLowerCase(); //retornar en minusculas
  }
-  
+
+ const cambiarImagen = () =>{
+  if (fuente=="hola"){
+    setFuente("amigo");
+  }else{
+    setFuente("hola");
+  }
+  alert(fuente)
+ }
+
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image}/>
@@ -221,23 +225,27 @@ export default function App() {
       <View style= {styles.lineaHorizontal}>
         {
         //<Button title= 'Mostrar contenido de la ruta' onPress={mostrarContenido}/>
+        //<Image  style= {styles.avatar} source={require("./assets/hi.jpg")}/> <Image  style= {styles.avatar} source={{uri: "https://www.hetah.net/_assets/modules/traductor/img/h/hola.jpg"}}/>
         }
-     
-        <Image  style= {styles.avatar} source={require("./assets/hi.jpg")}/>
+
+        <Image  style= {styles.avatar} source={Images.fuentes[fuente]}/>
+        <Button title= 'cambia la imagen' onPress={cambiarImagen}/>
+
       </View>
       
       <StatusBar style="auto" />
       {/*<TextInput 
         style= {styles.entrada}
         placeholder= "Introduzca texto"
-      />*/}
+      />*/}  
       
       {!started ? <Button title='Presione para traducir' color= "green" onPress={startSpeechToText} /> : undefined}
       {started ? <Button title='Presione para dejar de hablar' color= "red" onPress={stopSpeechToText} /> : undefined}
-      
+  
       <Text>{rutas}</Text>
 
     </View>
+    
   );
 }
 
@@ -281,8 +289,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   avatar:{
-    width: 250, 
+    maxWidth: '75%', 
     height: 250,
+    
   },
   lineaHorizontal:{
     borderWidth: 2,
@@ -293,6 +302,51 @@ const styles = StyleSheet.create({
   }
 });
 // uso este comando para correr el demo de la aplicación eas build -p android --profile preview
+
+/*
+Posible manera de animar imagen en expo
+
+export default function App() {
+  const [viewState, setViewState] = React.useState(true);
+  const scale = React.useRef(new Animated.Value(1)).current;
+  const [init, setInit] = React.useState(true);
+  React.useEffect(() => {
+    if (init) {
+      setInit(false);
+    } else {
+      if (viewState) {
+        Animated.timing(scale, {
+          toValue: 2,
+          duration: 1000,
+          useNativeDriver: true,
+        }).start();
+      } else {
+        Animated.timing(scale, {
+          toValue: 0.5,
+          duration: 700,
+          useNativeDriver: true,
+        }).start();
+      }
+    }
+  }, [viewState]);
+
+  const scaleOut = () => {
+    setViewState(!viewState);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Animated.View style={{ transform: [{ scale }] }}>
+        <Image
+          style={styles.image}
+          source={require('./assets/snack-icon.png')}
+        />
+      </Animated.View>
+      <Button title="animate" onPress={scaleOut} />
+    </View>
+  );
+}
+*/ 
 
 
 
