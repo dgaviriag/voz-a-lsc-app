@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 import image from 'speech-to-text-app/assets/UN.png';
 import Voice from '@react-native-voice/voice';
 import Images from './assets/importarImagenes.js';
-
+//  RECORDAR PROCESAR LAS ñ Y CAMBIARLAS POR n- 
 export default function App() {
   let [started, setStarted] = useState(false);//variable de estado que me permte saber si estoy grabando
   let [results, setResults] = useState([]);//con esto se veran los resultados en texto como un arreglo
   let [rutas, setRutas] = useState([]);//variable de estado para cambiar de ruta
-  let [fuente, setFuente] = useState("hola");//tengo esta por ahora porque me pide un valor estatico
+  let [fuente, setFuente] = useState("hola.jpg");//tengo esta por ahora porque me pide un valor estatico
   
   //A continuacion se crean arreglos con las palabras existentes en lengua de señas para encontrar las rutas
   const a = ["abajo.jpg","abandonar.jpg","abanico.jpg","abarcar.jpg","abofetear.jpg","abonar.jpg","abono.jpg","aborto.jpg","abraham.jpg","abreviar.jpg","abrigo.jpg","abril.jpg","abrir_cortina.jpg","absorber.jpg","abstracto.jpg","abuelo.jpg","abuelo_v.jpg","aburrido.jpg","abuso.jpg","abuso_sexual.jpg","acabar.jpg","acariciar.jpg","accion_de_gracias.jpg","aceite.jpg","acelerar.jpg","acento.jpg","aceptar.jpg","acera.jpg","acercar.jpg","acercarse.jpg","acido.jpg","acido_nucleico.jpg","aclaracion.jpg","acne.jpg","acolitos.jpg","acomodar.jpg","acompan-ar.jpg","acosar.jpg","acoso_sexual.jpg","acostarse.jpg","acta.jpg","actitud.jpg","actual.jpg","acuario.jpg","acuatico.jpg","acunar.jpg","acurrucar.jpg","adan.jpg","adaptacion.jpg","adelantar.jpg","adherir.jpg","adhesion.jpg","adhesivo.jpg","adiestrar.jpg","adios.jpg","adiposa.jpg","adjetivo.jpg","adjetivo_calificativo.jpg","adjetivo_superlativo.jpg","adjuntar.jpg","administracion_de_empresas.jpg","admirar.jpg","admitir.jpg","adobar.jpg","adopcion.jpg","adoptar.jpg","adorable.jpg","adoracion.jpg","adorar.jpg","adormilar.jpg","adulto.jpg","adverbio.jpg","advertir.jpg","aereos.jpg","afan.jpg","afiche.jpg","afiliado.jpg","afrontar.jpg","agarrar.jpg","agentes.jpg","agosto.jpg","agotado.jpg","agotar.jpg","agregar.jpg","agua.jpg","agua_chica.jpg","agua_de_dios.jpg","aguacate.jpg","aguacero.jpg","aguadas.jpg","agustin_codazzi.jpg","ahi_esta.jpg","ahora.jpg","aji.jpg","ajo.jpg","ajustar.jpg","al_contrario.jpg","al_lado.jpg","al_lado_de_v.jpg","ala.jpg","alabanza.jpg","alba.jpg","albania.jpg","alcala.jpg","alcalde.jpg","alcaldia.jpg","alcanzar.jpg","alcanzar_a_alguien.jpg","alcanzar_algo.jpg","alcanzar_el_puntaje.jpg","alcoba.jpg","alcoholismo.jpg","alerta.jpg","aletas.jpg","alfabeto.jpg","algebra.jpg","algodon.jpg","algunos.jpg","alimentador.jpg","alimento_espiritual.jpg","alisar.jpg","aliviar.jpg","alla.jpg","alma.jpg","almacen.jpg","almeja.jpg","almidon.jpg","almohada.jpg","almojabana.jpg","almuerzo.jpg","alojar.jpg","altar.jpg","alterado.jpg","alternativa.jpg","alto.jpg","aluminio.jpg","alumno.jpg","alvarado.jpg","alveolos.jpg","alza.jpg","amable.jpg","amalfi.jpg","amanecer.jpg","amante.jpg","amargo.jpg","amarillo.jpg","amasar.jpg","ambicioso.jpg","ambientador.jpg","ambon.jpg","ameba.jpg","amenaza.jpg","america.jpg","amigdala.jpg","amigo.jpg","amigo_v.jpg","amonestar.jpg","amor.jpg","amorosa.jpg","amos.jpg","amperimetro.jpg","amplificacion.jpg","ampollas.jpg","amputar.jpg","anafase.jpg","anapoima.jpg","anaranjado.jpg","anatomia.jpg","ancho.jpg","anciano.jpg","androi.jpg","andropausia.jpg","anelidos.jpg","anestesiologo.jpg","anfibio.jpg","angiospermas.jpg","angostura.jpg","angulo.jpg","angulo_adyacente.jpg","angulo_agudo.jpg","angulo_complementario.jpg","angulo_consecutivo.jpg","angulo_convexo.jpg","angulo_de_giro.jpg","angulo_llano.jpg","angulo_obtuso.jpg","angulo_recto.jpg","angulos_opuestos_por_el_vertice.jpg","angulos_suplementarios.jpg","anidacion.jpg","animal.jpg","animales.jpg","animo.jpg","an-o.jpg","antena.jpg","antepenultima_silaba.jpg","antes.jpg","antes_de.jpg","antes_de_ayer.jpg","antifaz.jpg","antioquia.jpg","antologia.jpg","antonimo.jpg","antropologo.jpg","anual.jpg","anunciacion.jpg","aparato.jpg","aparato_de_golgi.jpg","apartado.jpg","apartamento.jpg","apartamento_v.jpg","apenas.jpg","aplaudir_oyentes.jpg","aplaudir_sordos.jpg","apocalipsis.jpg","apoyar.jpg","aprender.jpg","apretado.jpg","aprovechado.jpg","aprovechar.jpg","apulo.jpg","aqui.jpg","aracnidos.jpg","aran-a.jpg","aratoca.jpg","arbitro.jpg","arbol.jpg","arcilla.jpg","area.jpg","area_lateral.jpg","arepa.jpg","argumentacion.jpg","armenia.jpg","arn.jpg","aroma.jpg","aromatica.jpg","arrastrar.jpg","arreglar.jpg","arrendar.jpg","arrepentimiento.jpg","arriba.jpg","arriesgar.jpg","arroba.jpg","arroz.jpg","arruga.jpg","arrugada.jpg","arrugado.jpg","articulacion_biologia.jpg","articulacion_castellano.jpg","articulo.jpg","artropodos.jpg","arveja.jpg","arzobispo.jpg","asaltar.jpg","asamblea.jpg","ascencion_de_jesus.jpg","ascender.jpg","asexual.jpg","asfixia.jpg","asignar.jpg","asistir.jpg","asma.jpg","asociacion.jpg","asombrar.jpg","aspiracion.jpg","aspiradora.jpg","asquelmintos.jpg","astrologo.jpg","astronauta.jpg","asumir_a_dios.jpg","asunto.jpg","asustarse.jpg","atencion.jpg","atmosfera.jpg","atomo.jpg","atraccion.jpg","atrapar.jpg","atrasado.jpg","atrevido.jpg","audicion.jpg","auditiva.jpg","auditor.jpg","aula.jpg","aurora.jpg","automatico.jpg","autonomo.jpg","autopista.jpg","autopista_v.jpg","autor.jpg","autoridad_de_dios.jpg","autorizar.jpg","autoservicio.jpg","auxiliar.jpg","avanzado.jpg","avanzar.jpg","avenida_v.jpg","aventura.jpg","aventura_sexual.jpg","aves.jpg","avion.jpg","avisar.jpg","aviso.jpg","axioma.jpg","ayer.jpg","ayer_BIG.jpg","ayuda.jpg","ayudar.jpg","azteca.jpg","azucar.jpg","azul.jpg"];
@@ -203,12 +203,11 @@ export default function App() {
  }
 
  const cambiarImagen = () =>{
-  if (fuente=="hola"){
-    setFuente("amigo");
-  }else{
-    setFuente("hola");
-  }
-  alert(fuente)
+    if (fuente=="hola.jpg"){
+      setFuente("vulva.jpg");
+    }else{
+      setFuente("hola.jpg");
+    }
  }
 
   return (
@@ -217,8 +216,8 @@ export default function App() {
       <View>
         <Text style={styles.subtitle}>¡Bienvenido al traductor de voz a Lengua de Señas Colombiana!</Text>
       </View>
-      
         <Text style= {styles.salida}>{results[0]}</Text>
+        <Text style= {styles.salida}>{fuente}</Text>
         {//results.map((result, index) => <Text style= {styles.subtitle} key={index}>{result}</Text>)}
         }
 
@@ -230,7 +229,6 @@ export default function App() {
 
         <Image  style= {styles.avatar} source={Images.fuentes[fuente]}/>
         <Button title= 'cambia la imagen' onPress={cambiarImagen}/>
-
       </View>
       
       <StatusBar style="auto" />
@@ -242,7 +240,7 @@ export default function App() {
       {!started ? <Button title='Presione para traducir' color= "green" onPress={startSpeechToText} /> : undefined}
       {started ? <Button title='Presione para dejar de hablar' color= "red" onPress={stopSpeechToText} /> : undefined}
   
-      <Text>{rutas}</Text>
+      
 
     </View>
     
