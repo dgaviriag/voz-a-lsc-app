@@ -4,6 +4,11 @@ const Images = {
     fuentes: {
         // require("./lengua/"),
 
+        //Imagen de espera:
+
+        "conector_espera.jpg": require("./lengua/conector_espera.jpg"),
+        "cargando.gif": require("./cargando.gif"),
+
         //Imagenes que empiezan por la 'a': 
 
         "abajo.jpg": require("./lengua/a/abajo.jpg"),
@@ -3162,9 +3167,7 @@ const Images = {
         "zanahoria.jpg": require("./lengua/z/zanahoria.jpg"),
         "zancudo.jpg": require("./lengua/z/zancudo.jpg"),
         "zipaquira.jpg": require("./lengua/z/zipaquira.jpg"),
-
     }
 }
 
 export default Images;
-
