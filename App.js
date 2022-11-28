@@ -221,8 +221,6 @@ export default function App() {
     },1750);
  }
 
-
-
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image}/>
@@ -232,13 +230,9 @@ export default function App() {
         <Text style= {styles.salida}>{results[0]}</Text>
         {//results.map((result, index) => <Text style= {styles.subtitle} key={index}>{result}</Text>)}
         }
-
+        {fuente!="conector_espera.gif" && fuente!="cargando.gif"?<Text style= {styles.salidaActual}>{"Iris está diciendo:\n"+fuente}</Text>: undefined}
       <View style= {styles.lineaHorizontal}>
-        {
-        //<Button title= 'Mostrar contenido de la ruta' onPress={mostrarContenido}/>
-        //<Image  style= {styles.avatar} source={require("./assets/hi.gif")}/> <Image  style= {styles.avatar} source={{uri: "https://www.hetah.net/_assets/modules/traductor/img/h/hola.gif"}}/>
-        }
-        <Text style= {styles.salida}>{fuente}</Text>
+        
         <Image  style= {styles.avatar} source={Images.fuentes[fuente]}/>
 
       </View>
@@ -250,7 +244,7 @@ export default function App() {
       />*/}  
       
       {!started ? <Button disabled ={desabilitarBoton} title='Presione para traducir' color= "green" onPress={startSpeechToText} /> : undefined}
-      {started ? <Button title='Presione para dejar de hablar' color= "red" onPress={stopSpeechToText} /> : undefined}
+      {started ? <Button title='Presione para dejar de hablar' color= "blue" onPress={stopSpeechToText} /> : undefined}
   
       
 
@@ -309,7 +303,13 @@ const styles = StyleSheet.create({
     //borderBottomWidth: StyleSheet.hairlineWidth,
     marginBottom: 30,
     borderRadius: 5,
-  }
+  },
+  salidaActual:{
+    fontSize:20,
+    padding: 7,
+    fontWeight: 'bold',
+    color: 'blue',
+  },
 });
 // uso este comando para correr el demo de la aplicación eas build -p android --profile preview
 
