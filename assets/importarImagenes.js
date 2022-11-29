@@ -8,7 +8,6 @@ const Images = {
 
         "conector_espera.gif": require("./lengua/conector_espera.gif"),
         "cargando.gif": require("./cargando.gif"),
-        "hi.gif": require("./hi.gif"),
 
         //Imagenes que empiezan por la 'a': 
 

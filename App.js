@@ -228,9 +228,6 @@ export default function App() {
         <Text style={styles.subtitle}>¡Bienvenido al traductor de voz a Lengua de Señas Colombiana!</Text>
       </View>
         <Text style= {styles.salida}>{results[0]}</Text>
-        {//results.map((result, index) => <Text style= {styles.subtitle} key={index}>{result}</Text>)}
-        }
-        {fuente!="conector_espera.gif" && fuente!="cargando.gif"?<Text style= {styles.salidaActual}>{"Iris está diciendo:\n"+fuente}</Text>: undefined}
       <View style= {styles.lineaHorizontal}>
         
         <Image  style= {styles.avatar} source={Images.fuentes[fuente]}/>
@@ -246,7 +243,8 @@ export default function App() {
       {!started ? <Button disabled ={desabilitarBoton} title='Presione para traducir' color= "green" onPress={startSpeechToText} /> : undefined}
       {started ? <Button title='Presione para dejar de hablar' color= "blue" onPress={stopSpeechToText} /> : undefined}
   
-      
+      {fuente!="conector_espera.gif" && fuente!="cargando.gif"?<Text style= {styles.salidaActual}>{"Iris está diciendo: "+fuente}</Text>: undefined}
+
 
     </View>
     
@@ -312,51 +310,3 @@ const styles = StyleSheet.create({
   },
 });
 // uso este comando para correr el demo de la aplicación eas build -p android --profile preview
-
-/*
-Posible manera de animar imagen en expo
-
-export default function App() {
-  const [viewState, setViewState] = React.useState(true);
-  const scale = React.useRef(new Animated.Value(1)).current;
-  const [init, setInit] = React.useState(true);
-  React.useEffect(() => {
-    if (init) {
-      setInit(false);
-    } else {
-      if (viewState) {
-        Animated.timing(scale, {
-          toValue: 2,
-          duration: 1000,
-          useNativeDriver: true,
-        }).start();
-      } else {
-        Animated.timing(scale, {
-          toValue: 0.5,
-          duration: 700,
-          useNativeDriver: true,
-        }).start();
-      }
-    }
-  }, [viewState]);
-
-  const scaleOut = () => {
-    setViewState(!viewState);
-  };
-
-  return (
-    <View style={styles.container}>
-      <Animated.View style={{ transform: [{ scale }] }}>
-        <Image
-          style={styles.image}
-          source={require('./assets/snack-icon.png')}
-        />
-      </Animated.View>
-      <Button title="animate" onPress={scaleOut} />
-    </View>
-  );
-}
-*/ 
-
-
-
