@@ -57,9 +57,9 @@ export default function App() {
   };
 
   const stopSpeechToText = async () => {
-    llamarRuta(normalizarFrase(results[0]));//guardo las rutas usando la frase normalizada (sin tildes ni mayusculas)
     await Voice.stop();
     setStarted(false);
+    llamarRuta(normalizarFrase(results[0]));//guardo las rutas usando la frase normalizada (sin tildes ni mayusculas)
   };
 
   const onSpeechResults = (result) => {
